@@ -90,8 +90,14 @@ function deselectAll(plates = [], platesList) {
 // https://stackoverflow.com/questions/16310423/addeventlistener-calls-the-function-without-me-even-asking-it-to
 deselectItems.addEventListener('click', function() { deselectAll(items, itemsList) });
 
+// Delete all items from list:
 function deleteAll(plates = [], platesList) {
-    console.log('Deleteing aall')
+    while(plates.length > 0) {
+        plates.pop();
+    }
+
+    localStorage.setItem('items', JSON.stringify(items));
+    populateList(items,itemsList);
 }
 
 deleteAllItems.addEventListener('click', function() { deleteAll(items, itemsList) });
