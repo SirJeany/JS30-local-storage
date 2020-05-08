@@ -1,6 +1,8 @@
 'use strict';
 
 const addItems = document.querySelector('.add-items');
+const deselectItems = document.querySelector('.deselect-items');
+const deleteAllItems = document.querySelector('.delete-items');
 const itemsList = document.querySelector('.plates');
 const items = JSON.parse(localStorage.getItem('items')) || [];
 
@@ -55,6 +57,7 @@ addItems.addEventListener('submit', addItem);
 // Instead we tell the parent of the list (ul) to add the appropriate event listener to each of its children (as they are being created).
 function toggleDone(e) {
     // console.log(e.target) // So we look at the target that is being pressed within the parent
+    console.log('hello')
     const target = e.target;
     if(!target.matches('input')) return; // Skip if an input was not selected
 
@@ -70,6 +73,28 @@ function toggleDone(e) {
 }
 // Dont select all inputs of itemslist...
 itemsList.addEventListener('click', toggleDone);
+
+// ToDO:
+// Add: Uncheck all, Check all, Delete?
+
+// Uncheck all:
+function deselectAll(plates = [], platesList) {
+    // return console.log('Hello')
+    plates.forEach(plate => {
+        plate.done = false;
+    });
+
+    localStorage.setItem('items', JSON.stringify(items));
+    populateList(items,itemsList);
+}
+// https://stackoverflow.com/questions/16310423/addeventlistener-calls-the-function-without-me-even-asking-it-to
+deselectItems.addEventListener('click', function() { deselectAll(items, itemsList) });
+
+function deleteAll(plates = [], platesList) {
+    console.log('Deleteing aall')
+}
+
+deleteAllItems.addEventListener('click', function() { deleteAll(items, itemsList) });
 
 // To populate the list on page-load:
 populateList(items, itemsList);
