@@ -1,5 +1,5 @@
 # JS30-local-storage Toggle list items
-JS30 Local storage and event deleation using dynamic toggle-list menu.
+JS30 Local storage and event delegation using dynamic toggle-list menu.
 
 ## Features:
 - Using local storage
