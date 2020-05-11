@@ -37,6 +37,7 @@ function populateList(plates = [], platesList) {
             <li>
                 <input type="checkbox" data-index=${i} id="item${i}" ${plate.done? "checked":''} />
                 <label for="item${i}">${plate.text}</label>
+                <i data-index=${i} style="color: rgba(230, 80, 0); margin-top: 5px;" class="far fa-minus-square"></i>
             </li>
         `;
     }).join('');
@@ -101,6 +102,23 @@ function deleteAll(plates = [], platesList) {
 }
 
 deleteAllItems.addEventListener('click', function() { deleteAll(items, itemsList) });
+
+// Delete single plate:
+function deleteItem(e, plates = [], platesList) {
+    const target = e.target;
+    if (!target.matches('i')) {
+        return;
+    }
+
+    let index = target.dataset.index;
+
+    plates = plates.splice(index, 1);
+
+    localStorage.setItem('items', JSON.stringify(items));
+    populateList(items, itemsList);
+}
+
+itemsList.addEventListener('click', function(e) { deleteItem(e, items, itemsList) });
 
 // To populate the list on page-load:
 populateList(items, itemsList);
